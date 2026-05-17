@@ -12,7 +12,9 @@ describe('UserCardComponent', () => {
     id: 1,
     name: 'João Silva',
     email: 'joao@email.com',
-    phone: '123456789'
+    phone: '123456789',
+    phoneType: 'CELULAR',
+    cpf: '111.111.111-11'
   };
 
   beforeEach(async () => {

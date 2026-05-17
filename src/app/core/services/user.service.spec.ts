@@ -8,8 +8,8 @@ describe('UserService', () => {
   let httpMock: HttpTestingController;
 
   const mockUsers: User[] = [
-    { id: 1, name: 'João', email: 'joao@email.com', phone: '123' },
-    { id: 2, name: 'Maria', email: 'maria@email.com', phone: '456' }
+    { id: 1, name: 'João', email: 'joao@email.com', phone: '123', phoneType: 'CELULAR', cpf: '111.111.111-11' },
+    { id: 2, name: 'Maria', email: 'maria@email.com', phone: '456', phoneType: 'FIXO', cpf: '222.222.222-22' }
   ];
 
   beforeEach(() => {
@@ -17,7 +17,6 @@ describe('UserService', () => {
       imports: [HttpClientTestingModule],
       providers: [UserService]
     });
-
     service = TestBed.inject(UserService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -35,7 +34,6 @@ describe('UserService', () => {
       expect(users.length).toBe(2);
       expect(users[0].name).toBe('João');
     });
-
     const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users');
     expect(req.request.method).toBe('GET');
     req.flush(mockUsers);
@@ -46,19 +44,16 @@ describe('UserService', () => {
       expect(user.id).toBe(1);
       expect(user.name).toBe('João');
     });
-
     const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users/1');
     expect(req.request.method).toBe('GET');
     req.flush(mockUsers[0]);
   });
 
   it('deve criar usuário', () => {
-    const novoUsuario = { name: 'José', email: 'jose@email.com', phone: '789' };
-
+    const novoUsuario = { name: 'José', email: 'jose@email.com', phone: '789', phoneType: 'CELULAR' as const, cpf: '333.333.333-33' };
     service.createUser(novoUsuario).subscribe(user => {
       expect(user.name).toBe('José');
     });
-
     const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users');
     expect(req.request.method).toBe('POST');
     req.flush({ id: 3, ...novoUsuario });
@@ -66,11 +61,9 @@ describe('UserService', () => {
 
   it('deve atualizar usuário', () => {
     const dadosAtualizados = { name: 'João Atualizado' };
-
     service.updateUser(1, dadosAtualizados).subscribe(user => {
       expect(user.name).toBe('João Atualizado');
     });
-
     const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users/1');
     expect(req.request.method).toBe('PUT');
     req.flush({ id: 1, ...dadosAtualizados });
