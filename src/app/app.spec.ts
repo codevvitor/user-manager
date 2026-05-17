@@ -1,23 +1,30 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        provideHttpClient(),
+        provideAnimationsAsync(),
+        MatDialog
+      ]
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('deve criar o app', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('deve ter o método openModal', () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, user-manager');
+    const app = fixture.componentInstance;
+    expect(app.openModal).toBeTruthy();
   });
 });
