@@ -1,0 +1,43 @@
+<div class="container">
+
+  <div class="header">
+    <h1>Usuários</h1>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar usuário</mat-label>
+      <input matInput [formControl]="searchControl" placeholder="Digite o nome...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  @if (loading()) {
+    <div class="feedback-container">
+      <mat-spinner diameter="48" />
+    </div>
+  }
+
+  @if (error()) {
+    <div class="feedback-container error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error() }}</p>
+    </div>
+  }
+
+  @if (!loading() && !error()) {
+    @if (users().length === 0) {
+      <div class="feedback-container">
+        <mat-icon>search_off</mat-icon>
+        <p>Nenhum usuário encontrado.</p>
+      </div>
+    } @else {
+      <div class="users-grid">
+        @for (user of users(); track user.id) {
+          <app-user-card
+            [user]="user"
+            (editUser)="onEditUser($event)"
+          />
+        }
+      </div>
+    }
+  }
+</div>

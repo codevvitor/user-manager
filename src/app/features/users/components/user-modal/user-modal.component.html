@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>
+  {{ isEditing() ? 'Editar Usuário' : 'Novo Usuário' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" placeholder="Digite o nome...">
+      <mat-error>{{ nameError }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Digite o email...">
+      <mat-error>{{ emailError }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Telefone</mat-label>
+      <input matInput formControlName="phone" placeholder="Digite o telefone...">
+      <mat-error>{{ phoneError }}</mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">
+    Cancelar
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid || loading()"
+    (click)="onSubmit()"
+  >
+    @if (loading()) {
+      <mat-spinner diameter="20" />
+    } @else {
+      {{ isEditing() ? 'Salvar' : 'Criar' }}
+    }
+  </button>
+</mat-dialog-actions>
