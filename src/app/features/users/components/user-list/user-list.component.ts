@@ -8,7 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { debounceTime, distinctUntilChanged, switchMap, startWith, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from '../../../../core/services/user.service';
-import { UserCardComponent } from '../user-card/user-card.component';
 import { User } from '../../../../core/models/user.model';
 
 @Component({
@@ -21,7 +20,6 @@ import { User } from '../../../../core/models/user.model';
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    UserCardComponent
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'

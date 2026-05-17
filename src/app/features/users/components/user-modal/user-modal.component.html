@@ -1,46 +1,59 @@
 <h2 mat-dialog-title>
-  {{ isEditing() ? 'Editar Usuário' : 'Novo Usuário' }}
+  {{ isEditing() ? 'Editar usuário' : 'Adicionar novo usuário' }}
 </h2>
 
 <mat-dialog-content>
   <form [formGroup]="form">
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nome</mat-label>
-      <input matInput formControlName="name" placeholder="Digite o nome...">
-      <mat-error>{{ nameError }}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" placeholder="Digite o email...">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Usuário (e-mail) *</mat-label>
+      <input matInput formControlName="email" placeholder="Usuário (e-mail)">
       <mat-error>{{ emailError }}</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Telefone</mat-label>
-      <input matInput formControlName="phone" placeholder="Digite o telefone...">
-      <mat-error>{{ phoneError }}</mat-error>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nome completo *</mat-label>
+      <input matInput formControlName="name" placeholder="Nome completo">
+      <mat-error>{{ nameError }}</mat-error>
     </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>CPF *</mat-label>
+        <input matInput formControlName="cpf" placeholder="000.000.000-00">
+        <mat-error>{{ cpfError }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>Número do telefone *</mat-label>
+        <input matInput formControlName="phone" placeholder="Número do telefone">
+        <mat-error>{{ phoneError }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="phone-type">
+        <mat-select formControlName="phoneType">
+          <mat-option value="CELULAR">CELULAR</mat-option>
+          <mat-option value="FIXO">FIXO</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <p class="sms-info">
+      O usuário receberá uma senha provisória para acesso ao sistema por SMS.
+    </p>
 
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">
-    Cancelar
-  </button>
-
-  <button
-    mat-flat-button
-    color="primary"
+<mat-dialog-actions align="start">
+  <button mat-flat-button color="primary"
     [disabled]="form.invalid || loading()"
-    (click)="onSubmit()"
-  >
+    (click)="onSubmit()">
     @if (loading()) {
       <mat-spinner diameter="20" />
     } @else {
-      {{ isEditing() ? 'Salvar' : 'Criar' }}
+      SALVAR
     }
   </button>
+  <button mat-button (click)="onCancel()">CANCELAR</button>
 </mat-dialog-actions>

@@ -1,8 +1,6 @@
-.toolbar-title {
-  margin-left: 8px;
-  font-size: 20px;
-}
-
-.spacer {
-  flex: 1;
+.fab-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
 }

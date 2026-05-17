@@ -2,7 +2,6 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserListComponent } from './features/users/components/user-list/user-list.component';
 import { UserModalComponent } from './features/users/components/user-modal/user-modal.component';
 import { User } from './core/models/user.model';
@@ -11,7 +10,6 @@ import { User } from './core/models/user.model';
   selector: 'app-root',
   standalone: true,
   imports: [
-    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     UserListComponent
@@ -34,7 +32,6 @@ export class App {
 
     dialogRef.afterClosed().subscribe((result: User) => {
       if (!result) return;
-
       if (user) {
         this.userList.updateUserLocally(result);
       } else {
